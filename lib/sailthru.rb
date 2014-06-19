@@ -389,7 +389,7 @@ module Sailthru
         return false unless params[:action] == :verify
 
         sig = params.delete(:sig)
-        sig = sig.delete_if {|key, value| key == :controller}
+        params.delete(:controller)
         return false unless sig == get_signature_hash(params, @secret)
 
         _send = self.get_send(params[:send_id])
@@ -415,7 +415,7 @@ module Sailthru
         return false unless params[:action] == 'optout'
 
         sig = params.delete(:sig)
-        sig = sig.delete_if {|key, value| key == :controller}
+        params.delete(:controller)
         return false unless sig == get_signature_hash(params, @secret)
         return true
       else
@@ -435,7 +435,7 @@ module Sailthru
         return false unless params[:action] == 'hardbounce'
 
         sig = params.delete(:sig)
-        sig = sig.delete_if {|key, value| key == :controller}
+        params.delete(:controller)
         return false unless sig == get_signature_hash(params, @secret)
         return true
       else
